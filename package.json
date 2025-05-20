@@ -1,0 +1,33 @@
+{
+  "name": "golden-raspberry-awards",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "start:dev": "tsx watch src/server.ts",
+    "start": "node build/server.js",
+    "build": "tsup src --out-dir build",
+    "lint": "npx eslint ."
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "API RESTful to read worst movies from Golden Raspberry Awards.",
+  "devDependencies": {
+    "@eslint/js": "9.27.0",
+    "@types/node": "22.15.19",
+    "eslint": "9.27.0",
+    "eslint-config-prettier": "10.1.5",
+    "eslint-plugin-prettier": "5.4.0",
+    "globals": "16.1.0",
+    "prettier": "3.5.3",
+    "tsup": "8.5.0",
+    "tsx": "4.19.4",
+    "typescript": "5.8.3",
+    "typescript-eslint": "8.32.1"
+  },
+  "dependencies": {
+    "dotenv": "16.5.0",
+    "fastify": "5.3.3",
+    "zod": "3.25.7"
+  }
+}
