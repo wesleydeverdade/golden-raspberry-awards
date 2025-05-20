@@ -1,0 +1,29 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Movie {
+  id         String     @id @default(uuid())
+  title      String
+  year       Int
+  winner     Boolean
+  producers  Producer[] @relation("MoviesByProducers")
+  studios    Studio[]   @relation("MoviesByStudios")
+}
+
+model Producer {
+  id     String  @id @default(uuid())
+  name   String  @unique
+  movies Movie[] @relation("MoviesByProducers")
+}
+
+model Studio {
+  id     String  @id @default(uuid())
+  name   String  @unique
+  movies Movie[] @relation("MoviesByStudios")
+}
