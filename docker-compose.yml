@@ -1,0 +1,11 @@
+services:
+  app:
+    container_name: golden-raspberry-awards
+    build: .
+    ports:
+      - '3333:3333'
+    volumes:
+      - .:/app
+    environment:
+      - NODE_ENV=dev
+    command: sh -c "npm run db:init && npm run db:seed && npm run build && npm run start"
