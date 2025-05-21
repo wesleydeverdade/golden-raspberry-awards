@@ -31,13 +31,13 @@ describe('Awards Intervals (e2e)', () => {
       ],
       max: [
         {
-          producer: 'Producer 1',
+          producer: 'Producer 3',
           interval: 99,
           previousWin: 1900,
           followingWin: 1999,
         },
         {
-          producer: 'Producer 2',
+          producer: 'Producer 4',
           interval: 99,
           previousWin: 2000,
           followingWin: 2099,
