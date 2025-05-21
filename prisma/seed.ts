@@ -44,6 +44,13 @@ async function upsertProducers(producerNames: string[]) {
 }
 
 async function main() {
+  const existing = await prisma.movie.findFirst();
+
+  if (existing) {
+    console.log('⚠️  Seed already applied!');
+    return;
+  }
+
   const csvText = fs.readFileSync('./Movielist.csv', 'utf-8');
   const records: CsvRow[] = parse(csvText, {
     delimiter: ';',

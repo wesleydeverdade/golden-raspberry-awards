@@ -2,17 +2,11 @@
 
 API para análise dos produtores vencedores do prêmio Framboesa de Ouro.
 
-## 🛠️ Tecnologias
+## 📦 Requisitos
 
-- Node.js
-
-- Fastify
-
-- Prisma ORM
-
-- SQLite
-
-- Vitest
+- [Node.js](https://nodejs.org/) v22.14.0+
+- [Docker](https://www.docker.com/)
+- [Docker Compose plugin](https://docs.docker.com/compose/install/)
 
 ## Rodando localmente
 
@@ -28,13 +22,7 @@ Entre no diretório do projeto
   cd golden-raspberry-awards
 ```
 
-Instale as dependências
-
-```bash
-  npm install
-```
-
-Crie o arquivo .env conforme o .env.example
+Crie o arquivo .env copiando o .env.example
 
 ```bash
 
@@ -47,48 +35,32 @@ Para rodar esse projeto, você vai precisar adicionar as seguintes variáveis de
 
 `NODE_ENV`
 
+`PORT`
+
 `DATABASE_URL`
 
 Como esse projeto é somente uma demo, as variáveis estarão preenchidas no arquivo de exemplo :)
 
-### Banco de dados SGBD
+### 🚀 Subindo com Docker
 
-Para inicializar o banco de dados, rode
+Build e execução do container:
 
 ```bash
-  npm run db:init
+  docker compose up --build
 ```
 
-Para preencher o banco de dados, com as informações do .csv
+A primeira execução vai rodar `npm run db:seed` automaticamente dentro do container golden-raspberry-awards para popular banco sqlite conforme o .csv
+
+Parando a execução do container:
 
 ```bash
-  npm run db:seed
+  docker compose down
 ```
 
-Para visualizar o banco de dados via interface do prisma
+### 💻 Acessando a aplicação
 
 ```bash
-  npm run db:interface
-```
-
-### Executando em modo de desenvolvimento:
-
-```bash
-  npm run start:dev
-```
-
-### Em modo de produção:
-
-1. Gere a build
-
-```bash
-  npm run build
-```
-
-2. Execute o servidor a com a build:
-
-```bash
-  npm run start
+  http://localhost:3333/
 ```
 
 ## Uso/Exemplos
@@ -126,4 +98,22 @@ Para rodar os testes de integração, rode o seguinte comando
 
 ```bash
   npm run test
+```
+
+Caso deseje rodar os testes de integração dentro do container do docker:
+
+```bash
+  docker exec -it golden-raspberry-awards sh
+```
+
+e após isso, rodar dentro do container esse comando:
+
+```bash
+  npm run test
+```
+
+para sair do container:
+
+```bash
+  exit
 ```
