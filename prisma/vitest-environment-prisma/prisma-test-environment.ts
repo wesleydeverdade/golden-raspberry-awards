@@ -4,11 +4,9 @@ import { execSync } from 'node:child_process';
 import type { Environment } from 'vitest/environments';
 import { PrismaClient } from '@prisma/client';
 
-const prisma = new PrismaClient();
-
 const testDatabaseName = 'test-golden-raspberry-awards.db';
 
-const seed = async () => {
+const seedTestEnvironment = async (prisma: PrismaClient) => {
   console.log('✅ Seed init.');
 
   const csvData = [
@@ -115,19 +113,21 @@ export default <Environment>{
   async setup() {
     process.env.DATABASE_URL = `file:./db/${testDatabaseName}`;
 
-    // Criando banco de testes
+    // Creating database for e2e tests
     execSync('npx prisma migrate deploy');
 
     console.log('✅ Database created.');
 
-    seed().catch((e) => {
+    const prisma = new PrismaClient();
+
+    await seedTestEnvironment(prisma).catch((e) => {
       console.error(e);
       process.exit(1);
     });
 
     return {
       async teardown() {
-        // Apagando banco de testes
+        // Deleting database for e2e tests
         try {
           execSync(`rm -f prisma/db/${testDatabaseName}`);
           execSync(`rm -f prisma/db/${testDatabaseName}-journal`);
