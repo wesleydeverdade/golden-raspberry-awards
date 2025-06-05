@@ -65,7 +65,7 @@ Parando a execução do container:
 
 ## Uso/Exemplos
 
-### `GET /awards/interval`
+### `GET /awards/intervals`
 
 Retorna os produtores com os **menores** e **maiores** intervalos entre prêmios.
 
@@ -103,7 +103,7 @@ Para rodar os testes de integração, rode o seguinte comando
 Caso deseje rodar os testes de integração dentro do container do docker:
 
 ```bash
-  docker exec -it golden-raspberry-awards sh
+  docker exec -it golden-raspberry-awards bash
 ```
 
 e após isso, rodar dentro do container esse comando:
