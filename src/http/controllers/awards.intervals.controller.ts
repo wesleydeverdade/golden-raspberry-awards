@@ -1,6 +1,4 @@
-import { PrismaClient } from '@prisma/client';
-
-const prisma = new PrismaClient();
+import { producers } from '@/database';
 
 type IntervalResult = {
   producer: string;
@@ -9,17 +7,12 @@ type IntervalResult = {
   followingWin: number;
 };
 
-export async function register() {
-  const producers = await prisma.producer.findMany({
-    include: {
-      movies: {
-        where: { winner: true },
-      },
-    },
-  });
-
+export function register() {
   const intervals: IntervalResult[] = producers.flatMap((producer) => {
-    const years = producer.movies.map((m) => m.year).sort((a, b) => a - b);
+    const winningMovies = producer.movies.filter((m) => m.winner);
+
+    const years = winningMovies.map((m) => m.year).sort((a, b) => a - b);
+
     if (years.length < 2) return [];
 
     return years.slice(1).map((year, index) => ({
@@ -29,6 +22,10 @@ export async function register() {
       followingWin: year,
     }));
   });
+
+  if (intervals.length === 0) {
+    return { min: [], max: [] };
+  }
 
   const min = Math.min(...intervals.map((i) => i.interval));
   const max = Math.max(...intervals.map((i) => i.interval));

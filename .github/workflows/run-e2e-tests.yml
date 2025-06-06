@@ -20,4 +20,3 @@ jobs:
       - run: npm run test
         env:
           JWT_SECRET: testing
-          DATABASE_URL: 'file:./db/golden-raspberry-awards.db'

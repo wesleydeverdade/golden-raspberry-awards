@@ -8,4 +8,4 @@ services:
       - .:/app
     environment:
       - NODE_ENV=dev
-    command: sh -c "npm run db:init && npm run db:seed && npm run build && npm run start"
+    command: sh -c "npm run start:dev"
